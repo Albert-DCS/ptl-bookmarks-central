@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ApiHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,10 +20,14 @@ class IndexController extends AbstractController
         ]);
     }
 
-    private function getAllOrders()
+    private function getAllOrders(ApiHelper $ApiHelper = new ApiHelper())
     {
         $api_key = $this->getParameter('etsy.keystring');
+        $base_url = 'https://api.etsy.com/v3/application';
 
-        return $api_key;
+        $ApiHelper->setParameters($api_key, $base_url);
+
+
+        return $ApiHelper->test();
     }
 }
